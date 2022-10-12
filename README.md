@@ -10,4 +10,4 @@ This program contains a timed quiz with multiple choice questions. The questions
 
 ## Link to Deployed Application:
 
-[Password Generator Link](https://madalynmm.github.io/module-3-challenge/)
+[Coding Quiz](https://madalynmm.github.io/deer-fall-leaves//)
