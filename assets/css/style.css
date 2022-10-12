@@ -1,0 +1,94 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,regular,500,600,700,800,300italic,italic,500italic,600italic,700italic,800italic);
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 150%;
+    background-color: #E0FBFC;
+    margin: 0;
+}
+
+header {
+    background-color: #253237;
+    padding: 50px;
+    margin: 0;
+}
+
+a {
+    color: #9DB4C0;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #E0FBFC;
+}
+
+button {
+    display: inline-block;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 100%;
+    background-color: #253237;
+    border-radius: 20px;
+    padding: 7px 20px;
+    color: #E0FBFC;
+    border: 0;
+}
+
+button:hover {
+    background-color: #9DB4C0;
+}
+
+.choices button {
+    display: block;
+}
+
+input[type="text"] {
+    font-size: 90%;
+    font-style: italic;
+    color:#5C6B73;
+    background-color: #C2DFE3;
+}
+
+ol {
+    text-align: left;
+    font-size: 90%;
+}
+
+li {
+    padding: 2px;
+    margin-bottom: 15px;
+    background-color: #C2DFE3;
+    list-style: decimal inside none;
+}
+
+.wrapper {
+    margin: 125px auto 125px auto;
+    max-width: 50%;
+    text-align: center;
+}
+
+.hide {
+    display: none;
+}
+
+.scores {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+}
+
+.timer {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    color: #9DB4C0;
+}
+
+#feedback {
+    font-style: italic;
+    font-size: 120%;
+    margin-top: 20px;
+    padding-top: 10px;
+    color: #5C6B73;
+    border-top: 3px solid #5C6B73;
+}

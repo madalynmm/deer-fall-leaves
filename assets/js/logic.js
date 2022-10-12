@@ -1,14 +1,10 @@
-//remain patient with yourself
-//take an organized approach rather than a panicked one
-
-
 //variables to keep track of quiz state
 var currentQuestionIndex = 0;
-var time = question.length * 15;
+var time = questions.length * 15;
 var timerId;
 
 //variables to reference DOM elements
-var questionEl = document.getElementById('questions');
+var questionsEl = document.getElementById('questions');
 var timerEl = document.getElementById('time');
 var choicesEl = document.getElementById('choices');
 var submitBtn = document.getElementById('submit');
@@ -19,13 +15,17 @@ var feedbackEl = document.getElementById('feedback');
 
 function startQuiz() {
     //hide start screen
+    var startScreenEl = document.getElementById('start-screen');
+    startScreenEl.setAttribute('class', 'hide');
 
     //un-hide questions section
+    questionsEl.removeAttribute('class');
 
-    //start timer (high)
-        //declare a variable named timerId. You will also meed to use setInterval and clockTick
+    //start timer (high) - declare a variable named timerId. You will also meed to use setInterval and clockTick
+    timerId = setInterval(clockTick, 1000);
 
     //show starting time (high)
+    timerEl.textContent = time;
 
     getQuestion();
 }
@@ -46,41 +46,57 @@ function getQuestion() { //this function is going to get the data from the quest
     for (var i=0; i < currentQuestion.choices.length; i++) {
         //create new button for each choice
         //.createElement
-        //.setAttribute (set a class="choice")
+        var choiceBtn = document.createElement('button');
+        //.setAttribute (set a class="choice") 
+        choiceBtn.setAttribute('class', 'choice');
         //.textContent
+        choiceBtn.textContent = currentQuestion.choices[i];
         //.appendChild
+        var choiceList = document.getElementById('choices');
+        choiceList.appendChild(choiceBtn);
     }
 }
 
 
 function questionClick(event) {
     var buttonEl = event.target;
+    var correctAnswer = questions[currentQuestionIndex].answer; 
 
     //if the clicked element is not a choice button, do nothing
     if (!buttonEl.matches('.choice')) {
         return;
     }
-    //check if user guessed right or wrong with if statement
-    if (true) { //replace true with conditional statement that checks if clicked choice button value is the same as the questions[currentQuestionIndex]'s answer
-        
-        //incorrect answer scenario
-
+    /*check if user guessed right or wrong with if statement 
+        - replace true with conditional statement that checks if clicked choice button value 
+        is the same as the questions[currentQuestionIndex]'s answer */
+    if (buttonEl.textContent !== correctAnswer) { 
+        //incorrect answer scenario - flash 'wrong' on screen
+        feedbackEl.textContent = "Wrong";
         //penalize time
+        time -= 15;   
+        if (time < 0) {
+            time = 0;
+        }
         //display new time on page
+        timerEl.textContent = time;
     }
     else {
         //correct scenario
-
-        //move to next question
+        feedbackEl.textContent = "Right!";
     }
-    //flash right/wrong feedback on page
+    //flash right/wrong answer
+    feedbackEl.setAttribute('class', 'feedback');
+    setTimeout(function () {
+        feedbackEl.setAttribute('class', 'feedback hide');
+    }, 2000);
 
     //move to next question
-    currentQuestionIndex++;
+    currentQuestionIndex++;        
 
     //check if we've run out of questions
     if (time <= 0 || currentQuestionIndex === questions.length) {
         quizEnd();
+        feedbackEl.setAttribute('class', 'hide');
     }
     else {
         getQuestion();
@@ -94,6 +110,10 @@ function quizEnd() {
 
     //show end screen
     var endScreenEl = document.getElementById('end-screen');
+    endScreenEl.removeAttribute('class');
+
+    //show final score
+    var finalScoreEl = document.getElementById('final-score');
     finalScoreEl.textContent = time;
 
     //hide questions sections
@@ -148,7 +168,14 @@ function checkForEnter(event) {
     }
 }
 
+//user clicks button to start quiz
+startBtn.onclick = startQuiz;
 
 //user clicks on element containing choices (need 2 more of these)
 choicesEl.onclick = questionClick;
+
+//user clicks enter to record initials
 initialsEl.onkeyup = checkForEnter;
+
+//user clicks button to submit initials
+submitBtn.onclick = saveHighscore;
